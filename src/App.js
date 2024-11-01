@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
 
 function App() {
+  const [tarefas, setTarefas] = useState([]);
+  const [tarefaTemp, setTarefaTemp] = useState("");
+
+  function cadastrarTarefa() {
+    setTarefas([...tarefas, tarefaTemp]);
+    setTarefaTemp("");
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input data-testId="campo-tarefa" type="text" value={tarefaTemp} onChange={(ev) => setTarefaTemp(ev.target.value)} />
+      <button data-testId="btn-cadastar" onClick={cadastrarTarefa} type="button">
+        Cadastrar
+      </button>
+      <ul>
+        {tarefas.map((tarefa) => (
+          <li>{tarefa}</li>
+        ))}
+      </ul>
     </div>
   );
 }
